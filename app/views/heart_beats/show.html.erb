@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Heart beat:</strong>
+  <%= @heart_beat.heart_beat %>
+</p>
+
+<p>
+  <strong>Intensity:</strong>
+  <%= @heart_beat.intensity %>
+</p>
+
+<%= link_to 'Edit', edit_heart_beat_path(@heart_beat) %> |
+<%= link_to 'Back', heart_beats_path %>

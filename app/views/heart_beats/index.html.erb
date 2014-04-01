@@ -1,0 +1,29 @@
+<h1>Listing heart_beats</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Heart beat</th>
+      <th>Intensity</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @heart_beats.each do |heart_beat| %>
+      <tr>
+        <td><%= heart_beat.heart_beat %></td>
+        <td><%= heart_beat.intensity %></td>
+        <td><%= link_to 'Show', heart_beat %></td>
+        <td><%= link_to 'Edit', edit_heart_beat_path(heart_beat) %></td>
+        <td><%= link_to 'Destroy', heart_beat, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Heart beat', new_heart_beat_path %>

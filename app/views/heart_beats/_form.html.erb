@@ -1,0 +1,25 @@
+<%= form_for(@heart_beat) do |f| %>
+  <% if @heart_beat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@heart_beat.errors.count, "error") %> prohibited this heart_beat from being saved:</h2>
+
+      <ul>
+      <% @heart_beat.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :heart_beat %><br>
+    <%= f.datetime_select :heart_beat %>
+  </div>
+  <div class="field">
+    <%= f.label :intensity %><br>
+    <%= f.text_field :intensity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
