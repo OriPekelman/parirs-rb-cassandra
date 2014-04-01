@@ -14,7 +14,9 @@ class HeartBeatsController < ApplicationController
 
   # GET /heart_beats/new
   def new
+    raise "How can we have a hear beat withtout a person ?" if Person.count == 0
     @heart_beat = HeartBeat.new
+    @heart_beat.person = Person.first 
   end
 
   # GET /heart_beats/1/edit
