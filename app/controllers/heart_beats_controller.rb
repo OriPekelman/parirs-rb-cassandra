@@ -32,6 +32,7 @@ class HeartBeatsController < ApplicationController
                              params["heart_beat"]["heart_beat(4i)"].to_i,
                              params["heart_beat"]["heart_beat(5i)"].to_i)
     @heart_beat = HeartBeat.new({heart_beat: heart_beat, intensity:  params["heart_beat"]["intensity"].to_i})
+    @heart_beat.person = Person.first
 
     respond_to do |format|
       if @heart_beat.save
@@ -71,7 +72,7 @@ class HeartBeatsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_heart_beat
-      @heart_beat = HeartBeat.find(params[:id])
+      @heart_beat = HeartBeat[Person.first.id.to_s].find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
