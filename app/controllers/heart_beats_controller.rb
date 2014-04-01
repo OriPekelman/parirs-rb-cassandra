@@ -24,7 +24,12 @@ class HeartBeatsController < ApplicationController
   # POST /heart_beats
   # POST /heart_beats.json
   def create
-    @heart_beat = HeartBeat.new(heart_beat_params)
+    heart_beat= DateTime.new(params["heart_beat"]["heart_beat(1i)"].to_i,
+                             params["heart_beat"]["heart_beat(2i)"].to_i,
+                             params["heart_beat"]["heart_beat(3i)"].to_i,
+                             params["heart_beat"]["heart_beat(4i)"].to_i,
+                             params["heart_beat"]["heart_beat(5i)"].to_i)
+    @heart_beat = HeartBeat.new({heart_beat: heart_beat, intensity:  params["heart_beat"]["intensity"].to_i})
 
     respond_to do |format|
       if @heart_beat.save
