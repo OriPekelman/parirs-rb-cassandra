@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <link href="css/reset.css" rel="stylesheet" />
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <link rel="shortcut icon" href="css/favicon.png" />
+    <link rel="apple-touch-icon" href="css/apple-touch-icon.png" />
+    <!-- Code Prettifier: -->
+<link href="css/highlight.css" type="text/css" rel="stylesheet" />
+<script type="text/javascript" src="js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+    <link href="css/style.css" rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,800italic,300,400,800' rel='stylesheet' type='text/css'>    
+
+
+  </head>
+
+  <body>
+  <div class="fallback-message">
+  <p>Your browser <b>doesn't support the features required</b> by impress.js, so you are presented with a simplified version of this presentation.</p>
+  <p>For the best experience please use the latest <b>Chrome</b>, <b>Safari</b> or <b>Firefox</b> browser.</p>
+  </div>
+    <div id="impress">
+    <div class='step' >
+    
+<h2>Et si quelqu&#39;un venait de la part de Cassandre, Ouvre-lui tôt la porte et ne le fais pas attendre</h2>
+
+<h2>PoissonRB @ EPITA</h2>
+
+<h3>1er Avril 2014</h3>
+
+<h4>Ori Pekelman</h4>
+</div>
+      <div class='step' >
+    
+<p>Salve communitas Lutetianae Rubiniensis.</p>
+</div>
+      <div class='step' >
+    
+<p>Cassandrae sumus loqui.</p>
+</div>
+      <div class='step' >
+    
+<p>Prima aprilis est ergo Latine loqui vobis volui neque ex sermone Gallico vetero sed aeger sum non bene valeo et munus est difficile. </p>
+</div>
+      <div class='step' >
+    
+<p>Ce seroit a ma grant honte que reste du conte en françois se feroit.</p>
+</div>
+      <div class='step' >
+    
+<h3>CAVEAT</h3>
+
+<p><img src="Running_with_Scissors_by_Luneth101.jpg" alt="Alt text"></p>
+</div>
+      <div class='step' >
+    
+<h3>CAVEAT</h3>
+
+<h2>Postgres fera l&#39;affaire dans 99% des cas d&#39;usage que vous avez.</h2>
+
+<p>Voilà c&#39;est dit (et c&#39;est le denier mot en latin pour aujourd&#39;hui)</p>
+</div>
+      <div class='step' >
+    
+<ul>
+<li>Cassandra est une base de données orientée colonnes. De la famille Dynamo.</li>
+<li>Elle est par nature distribuée. </li>
+<li>Elle peut supporter des charges en écriture inimaginable avec une technologie relationnelle. Elle peut monter à des tailles très conséquentes.</li>
+<li>Il y a encore peu de temps elle était très difficile à maîtriser et à mettre en production</li>
+</ul>
+</div>
+      <div class='step' >
+    
+<p>Notez quand même BigQuery &amp; Redshift mais on n&#39;aime pas le cloud nous si?</p>
+</div>
+      <div class='step' >
+    
+<ul>
+<li>Aujourd&#39;hui ça devient presque trop facile</li>
+<li>Il y a beaucoup d&#39;outils autour</li>
+<li>Et on a d&#39;excellentes Gems en Ruby</li>
+<li>Quand vous prévoyez à court terme plus qu&#39;un GO de nouvelles écritures par jour vous pouvez commencer à le considérer.</li>
+</ul>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>apt-get install dsc20
+apt-get install opscenter
+apt-get install datastax-agent
+</code></pre>
+<p>Il y a des outils en ligne de commande il y a des outils fenêtrés</p>
+</div>
+      <div class='step' >
+    
+<h2>Son domaine de prédilection c&#39;est les timeseries</h2>
+
+<h3>Comme dans le &quot;internet of things&quot;</h3>
+
+<p><img src="456973489_640.jpg" alt="Smokio"></p>
+
+<h3>... à titre d&#39;exemple Smokio présents ce soir</h3>
+</div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>rails new paris-rb-cassandra
+cd paris-rb-cassandra
+</code></pre></div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>$EDITOR Gemfile
+</code></pre><pre><code class='prettyprint ruby'>    gem 'cequel'
+</code></pre></div>
+      <div class='step' >
+    
+<h2>add dev gems cause we can&#39;t live without them</h2>
+<pre><code class='prettyprint ruby'>group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+  gem 'quiet_assets'
+  gem 'rails_layout'
+  gem 'byebug'
+end
+</code></pre></div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>bundle
+</code></pre><pre><code class='prettyprint ruby'>rails g cequel:configuration
+
+rails g cequel person name:text
+rails g scaffold person name:text
+
+rails g cequel heart_beat heart_beat:timestamp intensity:int
+rails g scaffold heart_beat heart_beat:timestamp intensity:int
+</code></pre></div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>$EDITOR app/models/heart_beat.rb
+</code></pre><pre><code class='prettyprint ruby'>  belongs_to :person
+</code></pre><pre><code class='prettyprint sh'>$EDITOR app/models/person.rb
+</code></pre><pre><code class='prettyprint ruby'>  has_many :heart_beats
+</code></pre></div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>rake cequel:init
+</code></pre><pre><code class='prettyprint sh'>$EDITOR app/controllers/heart_beats_controller.rb
+</code></pre>
+<blockquote>
+<p>SO.... we had a problem with the datetime_select helper .. and no time to investigate. Hackety hack... you will see some more changes in the git ...</p>
+</blockquote>
+<pre><code class='prettyprint ruby'>def new
+  raise "How can we have a hear beat withtout a person ?" if Person.count == 0
+  @heart_beat = HeartBeat.new
+  @heart_beat.person = Person.first 
+end
+</code></pre></div>
+      <div class='step' >
+    <pre><code class='prettyprint sh'>$EDITOR app/concerns/cequel_concern.rb
+</code></pre><pre><code class='prettyprint ruby'>module CequelConcern
+    extend ActiveSupport::Concern
+    def read_attribute_for_serialization(n)
+      n == "id" ? attributes[n].to_s : attributes[n]
+    end
+
+    def to_param
+      self.id.to_s
+    end
+end
+</code></pre><pre><code class='prettyprint sh'>$EDITOR app/models/heart_beat.rb
+</code></pre><pre><code class='prettyprint ruby'>  include CequelConcern
+</code></pre><pre><code class='prettyprint sh'>$EDITOR app/models/person.rb
+</code></pre><pre><code class='prettyprint ruby'>  include CequelConcern
+</code></pre></div>
+      <div class='step' >
+    
+<h1>This is too ugly</h1>
+<pre><code class='prettyprint sh'>rails g layout:install
+rails s
+</code></pre></div>
+      <div class='step' >
+    
+<h2>La fin <a href="http://localhost:3000">http://localhost:3000</a></h2>
+
+      </div>
+    <script src="js/impress.js"></script>
+    <script>impress().init();</script>
+  </body>
+</html>
+    
