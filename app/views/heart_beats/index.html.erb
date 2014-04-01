@@ -3,6 +3,7 @@
 <table>
   <thead>
     <tr>
+      <th>id</th>
       <th>Heart beat</th>
       <th>Intensity</th>
       <th></th>
@@ -14,6 +15,9 @@
   <tbody>
     <% @heart_beats.each do |heart_beat| %>
       <tr>
+        <td>
+          <%= heart_beat.id %>
+        </td>
         <td><%= heart_beat.heart_beat %></td>
         <td><%= heart_beat.intensity %></td>
         <td><%= link_to 'Show', heart_beat %></td>
