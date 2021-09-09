@@ -47,7 +47,7 @@ gem 'cequel', :github=>"cequel/cequel"
 #add dev gems cause we can't leave without them
 
 group :development do
-  gem 'better_errors'
+  gem 'better_errors', '>= 2.8.0'
   gem 'binding_of_caller'
   gem 'quiet_assets'
   gem 'rails_layout'
